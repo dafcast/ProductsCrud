@@ -4,10 +4,14 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-
-        {% block javascripts %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <div class='container'>
+        {% block body %}
+        {% endblock %}
+    </div>
+        <script src="{{ asset('build/app.js') }}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

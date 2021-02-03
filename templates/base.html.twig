@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {{ encore_entry_link_tags('app')}}
+        {# <link rel="stylesheet" href="{{ asset('build/app.css') }}"> #}
     </head>
     <body>
     {{ include('ui/_navbar.html.twig') }}
@@ -12,7 +13,8 @@
         {% block body %}
         {% endblock %}
     </div>
-        <script src="{{ asset('build/app.js') }}"></script>
         {% block javascripts %}{% endblock %}
+        {{ encore_entry_script_tags('app')}}
+        {# <script src="{{ asset('build/app.js') }}"></script> #}
     </body>
 </html>

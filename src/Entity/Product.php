@@ -2,11 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @UniqueEntity(
+ *      "code",
+ *      message="Este codigo ya esta en uso"
+ * )
+ * @UniqueEntity(
+ *      "name",
+ *      message="Este nombre ya esta en uso"
+ * )
  */
 class Product
 {
@@ -19,32 +30,53 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Este campo no puede estar vacío")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 10,
+     *      minMessage = "El codigo debe tener almenos {{ limit }} caracteres",
+     *      maxMessage = "El codigo no debe ser superio a  {{ limit }} caracteres"
+     * )
+     * @Assert\Type(
+     *     type="alnum",
+     *     message="El código solo puede contener caracteres alfanuméricos"
+     * )
      */
     private $code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\NotBlank(message = "Este campo no puede estar vacío")
+     * @Assert\Length(
+     *      min = 4,
+     *      minMessage = "El nombre debe tener almenos {{ limit }} caracteres",
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message = "Este campo no puede estar vacío")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\NotBlank(message = "Este campo no puede estar vacío")
      */
     private $brand;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
+     * * @Assert\NotBlank(message = "Este campo no puede estar vacío")
      */
     private $category;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message = "Este campo no puede estar vacío")
+     * @Assert\Positive(message = "El costo del producto debe ser positivo y diferente de cero")
      */
     private $price;
 

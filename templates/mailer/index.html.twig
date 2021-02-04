@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mailer index{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-primary">Mailer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Para</th>
+                <th>Asunto</th>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mailer in mailers %}
+            <tr>
+                <td>{{ mailer.id }}</td>
+                <td>{{ mailer.para }}</td>
+                <td>{{ mailer.asunto }}</td>
+                <td>{{ mailer.mensaje }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('mailer_new') }}">Create new</a>
+{% endblock %}
